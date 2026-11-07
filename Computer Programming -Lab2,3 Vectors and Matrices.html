@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATLAB Lab Exercises</title>
+    
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for rendering math equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --code-bg: #282c34;
+            --code-color: #abb2bf;
+            --border-color: #e0e0e0;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .problem-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .problem-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .btn-toggle {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .solution {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            animation: fadeIn 0.4s;
+        }
+
+        .solution.active {
+            display: block;
+        }
+
+        .solution-badge {
+            display: inline-block;
+            background-color: var(--success-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { margin: 1rem auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MATLAB Lab Worksheets</h1>
+        <p>Interactive Problem Statements & Instructor Answer Key</p>
+    </header>
+
+    <div class="container">
+
+        <!-- LAB 2 SECTION -->
+        <h2 class="section-title">Lab 2: Vectors, Indexing, and Logical Operations</h2>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.1: Exact number of samples</h3>
+            <p>A data-acquisition system must generate exactly 250 equally spaced time points from 0 s to 100 s, including both endpoints.</p>
+            <ol type="a">
+                <li>Create the vector using <code>linspace</code>.</li>
+                <li>Calculate the mathematical spacing between adjacent points.</li>
+                <li>Write the corresponding colon expression. Explain why <code>linspace</code> is the safer choice when the number of points is specified exactly.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-1', this)">Show Solution</button>
+            <div id="sol2-1" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>t = linspace(0,100,250);</code></li>
+                    <li>Spacing = \( 100 / (250-1) = 100/249 \approx 0.4016064257 \).</li>
+                    <li>The mathematical colon form is <code>0:(100/249):100</code>. In floating-point arithmetic, colon stepping can be sensitive to rounding at the endpoint; <code>linspace</code> is the direct choice when the number of points is fixed.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.2: Reverse indexing without hard-coded length</h3>
+            <p>A row vector <code>V</code> contains an unknown number of audio samples. Write one expression that extracts the final 20 elements in reverse order, beginning with the final element. Your expression must continue to work if the length of <code>V</code> changes.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-2', this)">Show Solution</button>
+            <div id="sol2-2" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>V(end:-1:end-19)</code>. There are 20 indices because the endpoints are inclusive.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.3: Short-circuit evaluation</h3>
+            <p>Consider:</p>
+<pre>x = 0;
+y = 10;
+result = (x ~= 0) && (y/x > 1);</pre>
+            <p>Predict <code>result</code> and explain which part of the expression MATLAB needs to evaluate. Distinguish short-circuit behavior from MATLAB's usual behavior for floating-point division by zero.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-3', this)">Show Solution</button>
+            <div id="sol2-3" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>result</code> is logical 0. Since <code>(x ~= 0)</code> is false, <code>&&</code> short-circuits and the second condition is not evaluated. With double values, <code>y/x</code> may produce <code>Inf</code> rather than an exception; the key point is skipped evaluation, not guaranteed prevention of a divide-by-zero error.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.4: Array comparisons versus scalar conditions</h3>
+            <p>Given <code>A = [1 5 8]</code> and <code>B = [2 4 8]</code>:</p>
+            <ol type="a">
+                <li>Explain why <code>if A && B</code> is not a valid way to compare the arrays.</li>
+                <li>Write an expression that compares corresponding elements of A and B using "less than or equal to".</li>
+                <li>Write an expression that checks whether every element of A is less than or equal to the corresponding element of B.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-4', this)">Show Solution</button>
+            <div id="sol2-4" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>&&</code> requires scalar logical conditions, not vectors.</li>
+                    <li><code>A <= B</code> gives <code>[1 0 1]</code>.</li>
+                    <li><code>all(A <= B)</code> returns logical 0 because \( 5 \le 4 \) is false.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.5: Vector geometry</h3>
+            <p>Two force vectors are <code>F1 = [3 -4 2]</code> and <code>F2 = [4 3 0]</code>. Use <code>dot</code> to test whether they are perpendicular. State the mathematical condition for orthogonality and show the resulting dot product.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-5', this)">Show Solution</button>
+            <div id="sol2-5" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>dot(F1,F2) = 3*4 + (-4)*3 + 2*0 = 0</code>. A zero dot product establishes orthogonality for these vectors.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.6: Scientific notation and data types</h3>
+            <p>A student writes <code>h = 6.626 * e-34</code> to represent \( 6.626 \times 10^{-34} \).</p>
+            <ol type="a">
+                <li>Identify the syntax problem.</li>
+                <li>Write the corrected MATLAB assignment.</li>
+                <li>Explain the role of <code>e</code> in MATLAB numeric literals.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-6', this)">Show Solution</button>
+            <div id="sol2-6" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>e</code> is not a standalone variable or operator here.</li>
+                    <li><code>h = 6.626e-34;</code></li>
+                    <li>E-notation embeds the exponent in the numeric literal.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.7: Logical masks</h3>
+            <p>For <code>V = [2 5 1 8 4]</code>, determine the exact output of <code>V >= 4</code>. State the class of the output and explain how it can be used to select the elements of <code>V</code> that meet the threshold.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-7', this)">Show Solution</button>
+            <div id="sol2-7" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>V >= 4</code> returns logical <code>[0 1 0 1 1]</code>. It is of class logical. Use <code>V(V >= 4)</code> to obtain <code>[5 8 4]</code>.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.8: Exclusive safety condition</h3>
+            <p>A warning must be raised if pressure <code>P</code> exceeds 100 OR temperature <code>T</code> exceeds 500, but not when both conditions are true simultaneously. Write one MATLAB expression for this exclusive condition. Test your expression conceptually for all four combinations of the two conditions.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-8', this)">Show Solution</button>
+            <div id="sol2-8" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>xor(P > 100, T > 500)</code>. It is true when exactly one condition is true and false when both are true or both are false.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.9: Combine vector creation and reduction</h3>
+            <p>Create <code>X</code> starting at 5, increasing by 3, and ending at 35. Without manually counting its elements, calculate the product of all elements divided by the number of elements. Use <code>prod</code> and <code>numel</code> or <code>length</code>, and state how many elements <code>X</code> contains.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-9', this)">Show Solution</button>
+            <div id="sol2-9" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>X = 5:3:35; result = prod(X)/numel(X);</code> X contains 11 elements: 5, 8, ..., 35.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.10: Segmented indexing</h3>
+            <p>Given <code>B = 1:1000</code>, write one indexing expression that extracts the elements at positions 10, 15, 20, ..., 90. Explain the difference between an element's value and its index in this example.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-10', this)">Show Solution</button>
+            <div id="sol2-10" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>B(10:5:90)</code>. Here the numbers in the colon expression are indices; because <code>B(k)=k</code>, the returned values happen to match those indices.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.11: Engineering data filter — challenge</h3>
+            <p>A temperature sensor reports <code>T = [24.8 25.1 99.0 24.9 25.3 0 25.0]</code> °C. Treat readings below 10 or above 60 as invalid.</p>
+            <ol type="a">
+                <li>Create a logical mask identifying invalid readings.</li>
+                <li>Return only valid readings without using a loop.</li>
+                <li>Calculate the mean of the valid readings.</li>
+                <li>Explain why filtering before calculating the mean matters.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-11', this)">Show Solution</button>
+            <div id="sol2-11" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>invalid = (T < 10) | (T > 60);</code></li>
+                    <li><code>validT = T(~invalid);</code></li>
+                    <li><code>meanValid = mean(validT);</code></li>
+                    <li><code>validT = [24.8 25.1 24.9 25.3 25.0]</code>, and <code>meanValid = 25.02</code>. Invalid readings can distort the summary statistic.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 2.12: Diagnose a vector bug — challenge</h3>
+            <p>A student wants 11 values from 0 to 1 but writes <code>t = 0:0.1:1.05</code> and assumes this always creates exactly 11 values. Explain the risk in the student's reasoning and give a more direct command when the required number of points is 11. State how you would verify the result in MATLAB.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol2-12', this)">Show Solution</button>
+            <div id="sol2-12" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p>Use <code>t = linspace(0,1,11);</code> verify with <code>numel(t) == 11</code> and, if desired, <code>t(1) == 0</code> and <code>t(end) == 1</code>. A colon expression ending at 1.05 does not express the requirement "exactly 11 points from 0 to 1" and may include an unintended extra point.</p>
+            </div>
+        </div>
+
+
+        <!-- LAB 3 SECTION -->
+        <h2 class="section-title">Lab 3: Matrices and Matrix Operations</h2>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.1: Rank, dependence, and invertibility</h3>
+            <p>For <code>A = [1 2 3; 2 4 6; 0 1 5]</code>:</p>
+            <ol type="a">
+                <li>Predict <code>rank(A)</code>.</li>
+                <li>Is A invertible? Justify using linear dependence and rank.</li>
+                <li>Explain why <code>inv(A)</code> is not an appropriate way to solve a system involving this coefficient matrix.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-1', this)">Show Solution</button>
+            <div id="sol3-1" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>rank(A) = 2</code>.</li>
+                    <li>Row 2 is twice row 1, so the rows are dependent; a 3x3 matrix with rank 2 is singular and has no ordinary inverse.</li>
+                    <li>Do not rely on <code>inv(A)</code> to solve a singular system.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.2: Matrix power versus element-wise power</h3>
+            <p>Let <code>I = [2 4; 6 8]</code>.</p>
+            <ol type="a">
+                <li>Write the command that squares each entry independently.</li>
+                <li>Calculate <code>I^2</code> using matrix multiplication.</li>
+                <li>Explain why the two results represent different operations.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-2', this)">Show Solution</button>
+            <div id="sol3-2" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>I.^2 = [4 16; 36 64]</code>.</li>
+                    <li><code>I^2 = I*I = [28 40; 60 88]</code>.</li>
+                    <li>Element-wise powers act on individual entries; matrix powers use matrix multiplication.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.3: Complex transpose</h3>
+            <p>Let <code>Z = [1+2i 3; 4-i 2i]</code>. Write <code>Z.'</code> and <code>Z'</code> explicitly. Explain which operation changes the signs of the imaginary parts and why the distinction can matter in electrical engineering.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-3', this)">Show Solution</button>
+            <div id="sol3-3" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>Z.' = [1+2i 4-i; 3 2i]</code>. <code>Z' = [1-2i 4+i; 3 -2i]</code>. The apostrophe performs conjugate transpose; dot-apostrophe performs transpose without conjugation.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.4: Rotation and flipping</h3>
+            <p>Let <code>M = [A B; C D]</code>.</p>
+            <ol type="a">
+                <li>Determine <code>rot90(M)</code>.</li>
+                <li>Determine <code>flipud(rot90(M))</code>.</li>
+                <li>Compare the result with <code>fliplr(M)</code>. Are they equal? Support your answer with the resulting symbolic matrices.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-4', this)">Show Solution</button>
+            <div id="sol3-4" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>rot90(M) = [B D; A C]</code>.</li>
+                    <li><code>flipud(rot90(M)) = [A C; B D] = M.'</code> for this real 2x2 symbolic example.</li>
+                    <li><code>fliplr(M) = [B A; D C]</code>, so they are not equal in general.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.5: Solve a linear system robustly</h3>
+            <p>Given <code>A = [3 1; 1 2]</code> and <code>b = [9; 8]</code>, solve \( Ax = b \) using the backslash operator. Then explain the difference between <code>A\b</code> and <code>inv(A)*b</code>, and why the former is generally preferred.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-5', this)">Show Solution</button>
+            <div id="sol3-5" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>x = A\b</code> gives <code>x = [2; 3]</code>. <code>A\b</code> solves \( Ax=b \) using an appropriate numerical method; <code>inv(A)*b</code> explicitly forms the inverse first and is generally less efficient and less numerically reliable.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.6: Verify a magic square</h3>
+            <p>Let <code>M = magic(4)</code>. Write one logical expression that returns logical 1 if and only if the sum of the main diagonal equals the sum of the second column. Identify the two quantities being compared.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-6', this)">Show Solution</button>
+            <div id="sol3-6" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>trace(M) == sum(M(:,2))</code>. For MATLAB's <code>magic(4)</code>, both sums equal 34; the expression returns logical 1.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.7: Column-major reshape</h3>
+            <p>Given <code>A = [1 2 3 4; 5 6 7 8; 9 10 11 12]</code>, evaluate <code>B = reshape(A, 6, 2)</code>. Write the first column of B and explain the element ordering used by MATLAB.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-7', this)">Show Solution</button>
+            <div id="sol3-7" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>B(:,1) = [1; 5; 9; 2; 6; 10]</code>. MATLAB fills and reshapes arrays in column-major order, reading down each column before moving to the next.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.8: Nested maximum</h3>
+            <p>For a 5x5 numeric matrix A, explain the intermediate output of <code>max(A)</code>, then explain how <code>max(max(A))</code> returns a scalar. Give a modern alternative that explicitly requests the maximum over all elements.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-8', this)">Show Solution</button>
+            <div id="sol3-8" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>max(A)</code> returns a 1x5 row vector of column maxima. The outer max takes the largest of those five values. A modern explicit form is <code>max(A,[],'all')</code> in MATLAB versions that support the 'all' dimension option.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.9: Identity and zero matrices</h3>
+            <p>Predict the size and contents of <code>C = eye(4) * zeros(4,4)</code>. Explain the result using matrix multiplication, not only scalar analogy.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-9', this)">Show Solution</button>
+            <div id="sol3-9" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>C</code> is a 4x4 zero matrix. The product has compatible dimensions; every entry is a sum of products involving zeros from the right-hand matrix, so every result entry is zero.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.10: Sum all entries</h3>
+            <p>For <code>X = [1 2 3; 4 5 6; 7 8 9]</code>, write two different MATLAB expressions that return the sum of all nine entries. Explain why <code>sum(X)</code> alone does not return a scalar for this matrix.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-10', this)">Show Solution</button>
+            <div id="sol3-10" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>sum(sum(X))</code> and <code>sum(X(:))</code> both return 45. <code>sum(X)</code> alone returns the column sums <code>[12 15 18]</code>, not one scalar.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.11: Debug a matrix calculation — challenge</h3>
+            <p>A student has <code>A = [1 2; 3 4]</code> and wants to multiply every entry by the corresponding entry of <code>B = [5 6; 7 8]</code>, but writes <code>C = A*B</code>.</p>
+            <ol type="a">
+                <li>Explain what <code>A*B</code> computes.</li>
+                <li>Write the correct element-wise command.</li>
+                <li>Calculate the first element of each result to demonstrate the difference.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-11', this)">Show Solution</button>
+            <div id="sol3-11" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>A*B = [19 22; 43 50]</code>, whose first element is \( 1 \times 5 + 2 \times 7 = 19 \).</li>
+                    <li><code>A.*B = [5 12; 21 32]</code>, whose first element is \( 1 \times 5 = 5 \).</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.12: Linear system with an engineering interpretation — challenge</h3>
+            <p>A simple circuit model produces the equations:</p>
+            <p>\( 2i_1 + i_2 = 7 \)</p>
+            <p>\( i_1 + 3i_2 = 11 \)</p>
+            <p>Represent the equations as \( A \times i = b \) using matrices, solve using the backslash operator, and substitute the result back into the equations to verify it.</p>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-12', this)">Show Solution</button>
+            <div id="sol3-12" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <p><code>A = [2 1; 1 3]; b = [7; 11]; i = A\b;</code> gives <code>i = [2; 3]</code>.</p>
+                <p>Verification: \( 2(2)+3=7 \) and \( 2+3(3)=11 \).</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h3 class="problem-title">Problem 3.13: Dimension and data-layout check — challenge</h3>
+            <p>A sensor records 4 measurements at each of 3 time instants. The data are stored in a 4x3 matrix D, where each column represents one time instant.</p>
+            <ol type="a">
+                <li>Which command returns the number of measurements at each time instant?</li>
+                <li>Which command returns the number of time instants?</li>
+                <li>Explain why <code>length(D)</code> is not a reliable substitute for either answer.</li>
+            </ol>
+            <button class="btn-toggle" onclick="toggleSolution('sol3-13', this)">Show Solution</button>
+            <div id="sol3-13" class="solution">
+                <span class="solution-badge">Instructor Key</span>
+                <ol type="a">
+                    <li><code>size(D,1)</code> returns 4 measurements per time instant.</li>
+                    <li><code>size(D,2)</code> returns 3 time instants.</li>
+                    <li><code>length(D)</code> returns <code>max(size(D))</code>, here 4, so it cannot reliably provide both dimensions.</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        function toggleSolution(id, btn) {
+            const solutionDiv = document.getElementById(id);
+            if (solutionDiv.classList.contains('active')) {
+                solutionDiv.classList.remove('active');
+                btn.textContent = 'Show Solution';
+            } else {
+                solutionDiv.classList.add('active');
+                btn.textContent = 'Hide Solution';
+            }
+        }
+    </script>
+</body>
+</html>
